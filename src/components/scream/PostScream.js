@@ -14,6 +14,10 @@ import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
 import { postScream, clearErrors } from '../../redux/actions/dataActions';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -30,14 +34,20 @@ const styles = (theme) => ({
     left: '91%',
     top: '6%',
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 });
 
-// add validation on frontend TAG
+let error = false;
 
 class PostScream extends Component {
   state = {
     open: false,
     body: '',
+    location: '',
+    tag: 'other',
     errors: {},
   };
   componentWillReceiveProps(nextProps) {
@@ -61,9 +71,17 @@ class PostScream extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.props.groupName);
-    this.props.postScream({ body: this.state.body });
+    if (this.state.location.trim() === '') {
+      error = 'City must not be empty';
+    } else {
+      event.preventDefault();
+      this.props.postScream({
+        body: this.state.body,
+        location: this.state.location,
+        tag: this.state.tag,
+        groupName: this.props.groupName,
+      });
+    }
   };
   render() {
     const { errors } = this.state;
@@ -91,12 +109,11 @@ class PostScream extends Component {
           </MyButton>
           <DialogTitle>Make a new post</DialogTitle>
           <DialogContent>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleChange}>
               <TextField
                 name='body'
                 type='text'
-                label='Share your problems or help with the world'
-                multiline
+                label='Share your problems or help the world'
                 rows='3'
                 placeholder='Your text goes here'
                 error={errors.body ? true : false}
@@ -105,12 +122,43 @@ class PostScream extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
+              <br />
+              <br />
+              <TextField
+                name='location'
+                type='text'
+                label='Type your city.'
+                rows='3'
+                placeholder='City'
+                className={classes.textField}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <br />
+              <br />
+              <FormControl variant='filled' className={classes.formControl}>
+                <InputLabel>Tag</InputLabel>
+                <Select
+                  labelId='Tag'
+                  id='Tag'
+                  name='tag'
+                  value={this.state.tag}
+                  onChange={this.handleChange}
+                >
+                  <MenuItem value={'helping'}>Helping</MenuItem>
+                  <MenuItem value={'asking'}>Asking</MenuItem>
+                  <MenuItem value={'other'}>Other</MenuItem>
+                </Select>
+              </FormControl>
+
+              <br />
               <Button
                 type='submit'
                 variant='contained'
                 color='primary'
                 className={classes.submitButton}
                 disabled={loading}
+                onClick={this.handleSubmit}
               >
                 Submit
                 {loading && (

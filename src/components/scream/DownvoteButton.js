@@ -7,7 +7,10 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 // REdux
 import { connect } from 'react-redux';
-import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
+import {
+  dislikeScream,
+  undislikeScream,
+} from '../../redux/actions/dataActions';
 
 export class DownvoteButton extends Component {
   likedScream = () => {
@@ -20,38 +23,38 @@ export class DownvoteButton extends Component {
       return true;
     else return false;
   };
-  likeScream = () => {
-    this.props.likeScream(this.props.screamId);
+  dislikeScream = () => {
+    this.props.dislikeScream(this.props.screamId);
   };
-  unlikeScream = () => {
-    this.props.unlikeScream(this.props.screamId);
+  undislikeScream = () => {
+    this.props.undislikeScream(this.props.screamId);
   };
   render() {
     const { authenticated } = this.props.user;
-    const likeButton = !authenticated ? (
+    const dislikeButton = !authenticated ? (
       <Link to='/login'>
         <MyButton tip='Like'>
           <ArrowDownwardIcon color='secondary' />
         </MyButton>
       </Link>
     ) : this.likedScream() ? (
-      <MyButton tip='Undo like' onClick={this.unlikeScream}>
+      <MyButton tip='Undo like' onClick={this.undislikeScream}>
         <ArrowDownwardIcon color='primary' />
       </MyButton>
     ) : (
-      <MyButton tip='Like' onClick={this.likeScream}>
+      <MyButton tip='Like' onClick={this.dislikeScream}>
         <ArrowDownwardIcon color='secondary' />
       </MyButton>
     );
-    return likeButton;
+    return dislikeButton;
   }
 }
 
 DownvoteButton.propTypes = {
   user: PropTypes.object.isRequired,
   screamId: PropTypes.string.isRequired,
-  likeScream: PropTypes.func.isRequired,
-  unlikeScream: PropTypes.func.isRequired,
+  dislikeScream: PropTypes.func.isRequired,
+  undislikeScream: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -59,8 +62,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-  likeScream,
-  unlikeScream,
+  dislikeScream,
+  undislikeScream,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(DownvoteButton);

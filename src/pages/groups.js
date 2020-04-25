@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { countries } from '../util/countries';
 import { Link } from 'react-router-dom';
+import SearchBar from '../components/layout/SearchBar';
 
 //Redux
 import { setGroup } from '../redux/actions/dataActions';
@@ -48,36 +49,45 @@ class groups extends Component {
   render() {
     const { classes } = this.props;
 
-    let GroupsMarkup = this.state.groups.map((group) => (
-      <Card className={classes.card} key={group.name}>
-        <CardMedia
-          title='Profile image'
-          className={classes.image}
-          image={`https://www.countryflags.io/${group.code.toLowerCase()}/shiny/64.png`}
-        />
-        <CardContent>
-          <Typography variant='h6'>{group.name}</Typography>
+    let filteredGroups = this.state.groups.filter((group) =>
+      group.name.toLowerCase().includes(this.props.search.toLowerCase())
+    );
 
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={() => {
-              this.props.setGroup(group.name);
-            }}
-            component={Link}
-            to='/group'
-          >
-            See group
-          </Button>
-        </CardContent>
-      </Card>
-    ));
+    let GroupsMarkup = filteredGroups.map((group) => {
+      return (
+        <Card className={classes.card} key={group.name}>
+          <CardMedia
+            title='Profile image'
+            className={classes.image}
+            image={`https://www.countryflags.io/${group.code.toLowerCase()}/shiny/64.png`}
+          />
+          <CardContent>
+            <Typography variant='h6'>{group.name}</Typography>
+
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => {
+                this.props.setGroup(group);
+              }}
+              component={Link}
+              to='/group'
+            >
+              See group
+            </Button>
+          </CardContent>
+        </Card>
+      );
+    });
 
     return (
       <div>
         <Grid container>
           <Grid item sm={4} xs={12}></Grid>
           <Grid item sm={4} xs={12}>
+            <SearchBar />
+            <br></br>
+
             {GroupsMarkup}
           </Grid>
           <Grid item sm={4} xs={12}></Grid>
@@ -90,12 +100,14 @@ class groups extends Component {
 const mapActionsToProps = { setGroup };
 
 const mapStateToProps = (state) => ({
-  groupName: state.groupName,
+  groupName: state.data.groupName,
+  search: state.data.search,
 });
 
 groups.propTypes = {
   classes: PropTypes.object.isRequired,
   setGroup: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
 };
 
 export default connect(

@@ -58,7 +58,7 @@ class login extends Component {
         <Grid item sm>
           <img
             src={AppIcon}
-            alt='monkey'
+            alt='heart'
             className={classes.image}
             width={200}
           />

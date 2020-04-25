@@ -14,11 +14,16 @@ import {
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
   SET_GROUP_NAME,
+  SET_SEARCH,
 } from '../types';
 import axios from 'axios';
 
 export const setGroup = (groupName) => (dispatch) => {
   dispatch({ type: SET_GROUP_NAME, payload: groupName });
+};
+
+export const setSearch = (searchText) => (dispatch) => {
+  dispatch({ type: SET_SEARCH, payload: searchText });
 };
 
 export const getPosts = (groupName) => (dispatch) => {
@@ -71,11 +76,12 @@ export const getScream = (screamId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
 // Post a scream
 export const postScream = (newScream) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/scream', newScream)
+    .post('/healthshot', newScream)
     .then((res) => {
       dispatch({
         type: POST_SCREAM,

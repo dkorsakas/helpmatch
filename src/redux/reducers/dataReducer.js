@@ -10,10 +10,13 @@ import {
   SET_SCREAM,
   SUBMIT_COMMENT,
   SET_GROUP_NAME,
+  SET_SEARCH,
 } from '../types';
 
 const initialState = {
   groupName: '',
+  shortGroupName: '',
+  search: '',
   screams: [],
   scream: {},
   loading: false,
@@ -24,7 +27,13 @@ export default function (state = initialState, action) {
     case SET_GROUP_NAME:
       return {
         ...state,
-        groupName: action.payload,
+        groupName: action.payload.name,
+        shortGroupName: action.payload.code,
+      };
+    case SET_SEARCH:
+      return {
+        ...state,
+        search: action.payload,
       };
     case LOADING_DATA:
       return {

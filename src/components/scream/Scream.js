@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
 // Redux
 import { connect } from 'react-redux';
+import Chip from '@material-ui/core/Chip';
 
 const styles = {
   card: {
@@ -31,6 +32,11 @@ const styles = {
   content: {
     padding: 25,
     objectFit: 'cover',
+  },
+  tags: {
+    position: 'absolute',
+    left: '80%',
+    top: '15%',
   },
 };
 
@@ -47,6 +53,7 @@ class Scream extends Component {
         screamId,
         likeCount,
         commentCount,
+        tag,
       },
       user: {
         authenticated,
@@ -58,6 +65,34 @@ class Scream extends Component {
       authenticated && userHandle === handle ? (
         <DeleteScream screamId={screamId} />
       ) : null;
+
+    const tagDisplay =
+      tag === 'helping' ? (
+        <Chip
+          className={classes.tags}
+          color='primary'
+          size='small'
+          label='Offers help'
+        />
+      ) : tag === 'asking' ? (
+        <Chip
+          className={classes.tags}
+          color='secondary'
+          size='small'
+          label='Needs help'
+        />
+      ) : (
+        <Chip size='small' className={classes.tags} label='Other' />
+      );
+
+    function truncateText(text, length) {
+      if (text.length <= length) {
+        return text;
+      }
+
+      return text.substr(0, length) + '\u2026';
+    }
+
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -72,13 +107,14 @@ class Scream extends Component {
             to={`/users/${userHandle}`}
             color='primary'
           >
-            {userHandle}
+            {truncateText(userHandle, 25)}
           </Typography>
           {deleteButton}
+          {tagDisplay}
           <Typography variant='body2' color='textSecondary'>
             {dayjs(createdAt).fromNow()}
           </Typography>
-          <Typography variant='body1'>{body}</Typography>
+          <Typography variant='body1'>{truncateText(body, 200)}</Typography>
           <LikeButton screamId={screamId} />
           <span>{likeCount} Votes</span>
           <DownvoteButton screamId={screamId} />

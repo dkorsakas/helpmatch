@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { signupUser } from '../redux/actions/userActions';
 
 const styles = (theme) => ({
-  ...theme.spreadThis
+  ...theme.spreadThis,
 });
 
 class signup extends Component {
@@ -26,7 +26,7 @@ class signup extends Component {
       password: '',
       confirmPassword: '',
       handle: '',
-      errors: {}
+      errors: {},
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -37,25 +37,25 @@ class signup extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
-      loading: true
+      loading: true,
     });
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      handle: this.state.handle
+      handle: this.state.handle,
     };
     this.props.signupUser(newUserData, this.props.history);
   };
   handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
   render() {
     const {
       classes,
-      UI: { loading }
+      UI: { loading },
     } = this.props;
     const { errors } = this.state;
 
@@ -63,16 +63,21 @@ class signup extends Component {
       <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
-          <img src={AppIcon} alt="monkey" className={classes.image} />
-          <Typography variant="h2" className={classes.pageTitle}>
+          <img
+            src={AppIcon}
+            width={200}
+            alt='heart'
+            className={classes.image}
+          />
+          <Typography variant='h2' className={classes.pageTitle}>
             SignUp
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
             <TextField
-              id="email"
-              name="email"
-              type="email"
-              label="Email"
+              id='email'
+              name='email'
+              type='email'
+              label='Email'
               className={classes.textField}
               helperText={errors.email}
               error={errors.email ? true : false}
@@ -81,10 +86,10 @@ class signup extends Component {
               fullWidth
             />
             <TextField
-              id="password"
-              name="password"
-              type="password"
-              label="Password"
+              id='password'
+              name='password'
+              type='password'
+              label='Password'
               className={classes.textField}
               helperText={errors.password}
               error={errors.password ? true : false}
@@ -93,10 +98,10 @@ class signup extends Component {
               fullWidth
             />
             <TextField
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              label="Confirm Password"
+              id='confirmPassword'
+              name='confirmPassword'
+              type='password'
+              label='Confirm Password'
               className={classes.textField}
               helperText={errors.confirmPassword}
               error={errors.confirmPassword ? true : false}
@@ -105,10 +110,10 @@ class signup extends Component {
               fullWidth
             />
             <TextField
-              id="handle"
-              name="handle"
-              type="text"
-              label="Handle"
+              id='handle'
+              name='handle'
+              type='text'
+              label='Handle'
               className={classes.textField}
               helperText={errors.handle}
               error={errors.handle ? true : false}
@@ -117,14 +122,14 @@ class signup extends Component {
               fullWidth
             />
             {errors.general && (
-              <Typography variant="body2" className={classes.customError}>
+              <Typography variant='body2' className={classes.customError}>
                 {errors.general}
               </Typography>
             )}
             <Button
-              type="submit"
-              variant="contained"
-              color="primary"
+              type='submit'
+              variant='contained'
+              color='primary'
               className={classes.button}
               disabled={loading}
             >
@@ -135,7 +140,7 @@ class signup extends Component {
             </Button>
             <br />
             <small>
-              Already have an account ? Login <Link to="/login">here</Link>
+              Already have an account ? Login <Link to='/login'>here</Link>
             </small>
           </form>
         </Grid>
@@ -149,15 +154,14 @@ signup.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
-  signupUser: PropTypes.func.isRequired
+  signupUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  UI: state.UI
+  UI: state.UI,
 });
 
-export default connect(
-  mapStateToProps,
-  { signupUser }
-)(withStyles(styles)(signup));
+export default connect(mapStateToProps, { signupUser })(
+  withStyles(styles)(signup)
+);

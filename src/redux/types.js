@@ -22,3 +22,4 @@ export const POST_SCREAM = 'POST_SCREAM';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 export const SET_GROUP_NAME = 'SET_GROUP_NAME';
 export const SET_SEARCH = 'SET_SEARCH';
+export const SET_SEARCH_LOCATION = 'SET_SEARCH_LOCATION';

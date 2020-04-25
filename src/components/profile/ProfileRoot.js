@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 
-import ProfileSkeleton from '../../util/ProfileSkeleton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // MUI stuff
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -69,7 +69,12 @@ class ProfileRoot extends Component {
         </Typography>
       )
     ) : (
-      <ProfileSkeleton />
+      <div>
+        <Button>
+          <CircularProgress />
+        </Button>
+        <br></br>
+      </div>
     );
 
     return profileMarkup;

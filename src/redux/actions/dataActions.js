@@ -15,6 +15,7 @@ import {
   SUBMIT_COMMENT,
   SET_GROUP_NAME,
   SET_SEARCH,
+  SET_SEARCH_LOCATION,
 } from '../types';
 import axios from 'axios';
 
@@ -24,6 +25,10 @@ export const setGroup = (groupName) => (dispatch) => {
 
 export const setSearch = (searchText) => (dispatch) => {
   dispatch({ type: SET_SEARCH, payload: searchText });
+};
+
+export const setSearchLocation = (searchText) => (dispatch) => {
+  dispatch({ type: SET_SEARCH_LOCATION, payload: searchText });
 };
 
 export const getPosts = (groupName) => (dispatch) => {

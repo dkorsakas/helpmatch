@@ -11,12 +11,14 @@ import {
   SUBMIT_COMMENT,
   SET_GROUP_NAME,
   SET_SEARCH,
+  SET_SEARCH_LOCATION,
 } from '../types';
 
 const initialState = {
   groupName: '',
   shortGroupName: '',
   search: '',
+  searchLocation: '',
   screams: [],
   scream: {},
   loading: false,
@@ -34,6 +36,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         search: action.payload,
+      };
+    case SET_SEARCH_LOCATION:
+      return {
+        ...state,
+        searchLocation: action.payload,
       };
     case LOADING_DATA:
       return {

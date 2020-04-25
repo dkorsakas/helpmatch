@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import ScreamMobile from '../components/scream/ScreamMobile';
 
-import SearchBar from '../components/layout/SearchBar';
+import SearchBarLocation from '../components/layout/SearchBarLocation';
 import Scream from '../components/scream/Scream';
 import GroupDescription from '../components/profile/GroupDescription';
 import ScreamSkeleton from '../util/ScreamSkeleton';
@@ -23,11 +25,32 @@ class group extends Component {
   }
   render() {
     const { screams, loading } = this.props.data;
-    let recentScreamsMarkup = !loading ? (
-      screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
-    ) : (
-      <ScreamSkeleton />
+
+    let filteredScreams = screams.filter((scream) =>
+      scream.location
+        .toLowerCase()
+        .includes(this.props.searchLocation.toLowerCase())
     );
+
+    let recentScreamsMarkup;
+
+    if (isWidthDown('sm', this.props.width)) {
+      recentScreamsMarkup = !loading ? (
+        filteredScreams.map((scream) => (
+          <ScreamMobile key={scream.screamId} scream={scream} />
+        ))
+      ) : (
+        <ScreamSkeleton />
+      );
+    } else {
+      recentScreamsMarkup = !loading ? (
+        filteredScreams.map((scream) => (
+          <Scream key={scream.screamId} scream={scream} />
+        ))
+      ) : (
+        <ScreamSkeleton />
+      );
+    }
 
     return (
       <div>
@@ -42,7 +65,7 @@ class group extends Component {
               </Typography>
             ) : (
               <div>
-                <SearchBar />
+                <SearchBarLocation />
                 <br></br>
                 {recentScreamsMarkup}
               </div>
@@ -63,11 +86,13 @@ group.propTypes = {
   getPosts: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   groupName: PropTypes.string.isRequired,
+  searchLocation: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   data: state.data,
   groupName: state.data.groupName,
+  searchLocation: state.data.searchLocation,
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(group);
+export default connect(mapStateToProps, mapActionsToProps)(withWidth()(group));

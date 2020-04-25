@@ -11,6 +11,7 @@ import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 //Components
 import Navbar from './components/layout/Navbar';
+import HamburgerNavbar from './components/layout/HamburgerNavbar';
 import themeObject from './util/theme';
 import AuthRoute from './util/AuthRoute';
 // Pages
@@ -23,6 +24,7 @@ import groups from './pages/groups';
 import group from './pages/group';
 
 import axios from 'axios';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 
 const theme = createMuiTheme(themeObject);
 
@@ -49,7 +51,11 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
           <Router>
-            <Navbar />
+            {isWidthDown('sm', this.props.width) ? (
+              <HamburgerNavbar />
+            ) : (
+              <Navbar />
+            )}
             <div className='container'>
               <Switch>
                 <Route exact path='/' component={home} />
@@ -73,4 +79,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withWidth()(App);

@@ -13,11 +13,11 @@ import {
 } from '../../redux/actions/dataActions';
 
 export class DownvoteButton extends Component {
-  likedScream = () => {
+  dislikedScream = () => {
     if (
-      this.props.user.likes &&
-      this.props.user.likes.find(
-        (like) => like.screamId === this.props.screamId
+      this.props.user.dislikes &&
+      this.props.user.dislikes.find(
+        (dislike) => dislike.screamId === this.props.screamId
       )
     )
       return true;
@@ -33,16 +33,16 @@ export class DownvoteButton extends Component {
     const { authenticated } = this.props.user;
     const dislikeButton = !authenticated ? (
       <Link to='/login'>
-        <MyButton tip='Like'>
+        <MyButton tip='Dislike'>
           <ArrowDownwardIcon color='secondary' />
         </MyButton>
       </Link>
-    ) : this.likedScream() ? (
-      <MyButton tip='Undo like' onClick={this.undislikeScream}>
+    ) : this.dislikedScream() ? (
+      <MyButton tip='Undo dislike' onClick={this.undislikeScream}>
         <ArrowDownwardIcon color='primary' />
       </MyButton>
     ) : (
-      <MyButton tip='Like' onClick={this.dislikeScream}>
+      <MyButton tip='Dislike' onClick={this.dislikeScream}>
         <ArrowDownwardIcon color='secondary' />
       </MyButton>
     );

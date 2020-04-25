@@ -19,27 +19,27 @@ import Typography from '@material-ui/core/Typography';
 // Redux
 import { connect } from 'react-redux';
 import Chip from '@material-ui/core/Chip';
+import { Button } from '@material-ui/core';
 
 const styles = {
   card: {
     position: 'relative',
-    display: 'flex',
+
     marginBottom: 20,
   },
-  image: {
-    minWidth: 200,
-  },
+
   content: {
     padding: 25,
     objectFit: 'cover',
   },
   tags: {
-    position: 'absolute',
-    left: '80%',
-    top: '15%',
+    margin: 4,
+  },
+  media: {
+    height: 140,
   },
   comments: {
-    margin: 30,
+    margin: 10,
   },
 };
 
@@ -102,7 +102,7 @@ class Scream extends Component {
         <CardMedia
           image={userImage}
           title='Profile image'
-          className={classes.image}
+          className={classes.media}
         />
         <CardContent className={classes.content}>
           <Typography
@@ -114,16 +114,17 @@ class Scream extends Component {
             {truncateText(userHandle, 25)}
           </Typography>
           {deleteButton}
-
-          {tagDisplay}
           <Typography variant='body2' color='textSecondary'>
             {dayjs(createdAt).fromNow()}
+            {tagDisplay}
           </Typography>
+
           <Typography color='primary'>{`Loacation: ${location}`}</Typography>
           <Typography variant='body1'>{truncateText(body, 200)}</Typography>
           <LikeButton screamId={screamId} />
           <span>{likeCount} Votes</span>
           <DownvoteButton screamId={screamId} />
+
           <span className={classes.comments}>
             {commentCount} comments{' '}
             <ScreamDialog

@@ -1,21 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Link } from 'react-router-dom';
 
-import EditDetails from './EditDetails';
-import MyButton from '../../util/MyButton';
-import ProfileSkeleton from '../../util/ProfileSkeleton';
 // MUI stuff
-import Button from '@material-ui/core/Button';
+
 import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
+
 import Paper from '@material-ui/core/Paper';
 // Icons
-import LocationOn from '@material-ui/icons/LocationOn';
-import LinkIcon from '@material-ui/icons/Link';
 
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 //Redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../../redux/actions/userActions';
@@ -29,9 +22,7 @@ class GroupDescription extends Component {
     const {
       classes,
       user: {
-        credentials: { handle, createdAt, imageUrl, bio, website, location },
-        loading,
-        authenticated,
+        credentials: { imageUrl },
       },
     } = this.props;
 
@@ -54,7 +45,7 @@ class GroupDescription extends Component {
               {this.props.groupName}
             </Typography>
             <hr />
-            <Typography variant='body2'>this is amazing group</Typography>
+            <Typography variant='body2'>{`Welcome to the ${this.props.groupName} group! This is where everyone living in ${this.props.groupName} can share information on what help they need or how they can help others!`}</Typography>
             <hr />
           </div>
         </div>
@@ -72,9 +63,6 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = { logoutUser, uploadImage };
 
 GroupDescription.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  uploadImage: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   shortGroupName: PropTypes.string.isRequired,
   groupName: PropTypes.string.isRequired,

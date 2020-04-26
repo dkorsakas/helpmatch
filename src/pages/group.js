@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import ScreamMobile from '../components/scream/ScreamMobile';
+import PostScream from '../components/scream/PostScream';
 
 import SearchBarLocation from '../components/layout/SearchBarLocation';
 import Scream from '../components/scream/Scream';
@@ -12,16 +13,20 @@ import ScreamSkeleton from '../util/ScreamSkeleton';
 
 //Redux
 import { connect } from 'react-redux';
-import { getPosts } from '../redux/actions/dataActions';
+import { getPosts, setGroup } from '../redux/actions/dataActions';
 
 //import { getScreams } from '../redux/actions/dataActions';
 
 //MUI
 import Typography from '@material-ui/core/Typography';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
 class group extends Component {
   componentDidMount() {
     this.props.getPosts(this.props.groupName);
+  }
+  componentWillUnmount() {
+    this.props.setGroup('');
   }
   render() {
     const { screams, loading } = this.props.data;
@@ -59,10 +64,22 @@ class group extends Component {
         <Grid container spacing={10}>
           <Grid item sm={8} xs={12}>
             {screams.length === 0 ? (
-              <Typography>
-                There are no posts yet in this group - be the first one to make
-                the post and start the conversation
-              </Typography>
+              <div>
+                <Typography>
+                  There are no posts yet in this group - be the first one to
+                  make the post and start the conversation
+                  <EmojiEmotionsIcon />
+                </Typography>
+                <br></br>
+                <PostScream />
+                <br></br>
+                <br></br>
+
+                <img
+                  src={'https://media.giphy.com/media/Az1CJ2MEjmsp2/giphy.gif'}
+                  alt='empty'
+                />
+              </div>
             ) : (
               <div>
                 <SearchBarLocation />
@@ -80,13 +97,14 @@ class group extends Component {
   }
 }
 
-const mapActionsToProps = { getPosts };
+const mapActionsToProps = { getPosts, setGroup };
 
 group.propTypes = {
   getPosts: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   groupName: PropTypes.string.isRequired,
   searchLocation: PropTypes.string.isRequired,
+  setGroup: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

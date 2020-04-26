@@ -72,6 +72,11 @@ class HamburgerNavbar extends Component {
                           Logout
                         </Button>
                       </MenuItem>
+                      <MenuItem onClick={popupState.close}>
+                        <Button color='inherit' component={Link} to='/about'>
+                          About
+                        </Button>
+                      </MenuItem>
                     </Menu>
                   </Fragment>
                 )}
@@ -101,6 +106,11 @@ class HamburgerNavbar extends Component {
                       <MenuItem onClick={popupState.close}>
                         <Button color='inherit' component={Link} to='/signup'>
                           Signup
+                        </Button>
+                      </MenuItem>
+                      <MenuItem onClick={popupState.close}>
+                        <Button color='inherit' component={Link} to='/about'>
+                          About
                         </Button>
                       </MenuItem>
                     </Menu>

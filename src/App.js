@@ -22,6 +22,7 @@ import user from './pages/user';
 import userProfile from './pages/userProfile';
 import groups from './pages/groups';
 import group from './pages/group';
+import about from './pages/about';
 
 import axios from 'axios';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
@@ -60,6 +61,7 @@ class App extends Component {
               <Switch>
                 <Route exact path='/' component={home} />
                 <Route exact path='/group' component={group} />
+                <Route exact path='/about' component={about} />
                 <Route exact path='/userprofile' component={userProfile} />
                 <Route exact path='/groups' component={groups} />
                 <AuthRoute exact path='/login' component={login} />

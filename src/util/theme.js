@@ -23,6 +23,12 @@ export default {
     image: {
       margin: '20px auto 20px auto',
     },
+    imageCenter: {
+      display: 'block',
+      'margin-left': 'auto',
+      'margin-right': 'auto',
+      maxWidth: 350,
+    },
     pageTitle: {
       margin: '10px auto 10px auto',
     },

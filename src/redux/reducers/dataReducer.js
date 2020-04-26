@@ -60,6 +60,8 @@ export default function (state = initialState, action) {
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
+    case DISLIKE_SCREAM:
+    case UNDISLIKE_SCREAM:
       let index = state.screams.findIndex(
         (scream) => scream.screamId === action.payload.screamId
       );
@@ -70,18 +72,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
-    case DISLIKE_SCREAM:
-    case UNDISLIKE_SCREAM:
-      index = state.screams.findIndex(
-        (scream) => scream.screamId === action.payload.screamId
-      );
-      state.screams[index] = action.payload;
-      if (state.scream.screamId === action.payload.screamId) {
-        state.scream = action.payload;
-      }
-      return {
-        ...state,
-      };
+
     case DELETE_SCREAM:
       index = state.screams.findIndex(
         (scream) => scream.screamId === action.payload

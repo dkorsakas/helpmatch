@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import MyButton from '../../util/MyButton';
+
 import DeleteScream from './DeleteScream';
 import ScreamDialog from './ScreamDialog';
 import LikeButton from './LikeButton';
@@ -119,7 +119,7 @@ class Scream extends Component {
           <Typography variant='body2' color='textSecondary'>
             {dayjs(createdAt).fromNow()}
           </Typography>
-          <Typography color='primary'>{`Loacation: ${location}`}</Typography>
+          <Typography color='primary'>{`Location: ${location}`}</Typography>
           <Typography variant='body1'>{truncateText(body, 200)}</Typography>
           <LikeButton screamId={screamId} />
           <span>{likeCount} Votes</span>

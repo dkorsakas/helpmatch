@@ -45,6 +45,9 @@ class groups extends Component {
       groups: countries,
     };
   }
+  componentDidMount() {
+    this.props.setGroup('');
+  }
 
   render() {
     const { classes } = this.props;

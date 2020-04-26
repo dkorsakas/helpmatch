@@ -30,12 +30,7 @@ class Navbar extends Component {
                 <img src={logoWhite} width={150} alt='heartLogo'></img>
               </Button>
 
-              {this.props.groupName && (
-                <Button color='inherit'>
-                  Make a post
-                  <PostScream />
-                </Button>
-              )}
+              {this.props.groupName && <PostScream />}
               <Notifications />
               <Button color='inherit' component={Link} to='/groups'>
                 Groups
@@ -45,6 +40,9 @@ class Navbar extends Component {
               </Button>
               <Button color='inherit' onClick={this.handleLogout}>
                 Logout
+              </Button>
+              <Button color='inherit' component={Link} to='/about'>
+                About
               </Button>
             </Fragment>
           ) : (
@@ -58,6 +56,9 @@ class Navbar extends Component {
 
               <Button color='inherit' component={Link} to='/signup'>
                 Signup
+              </Button>
+              <Button color='inherit' component={Link} to='/about'>
+                About
               </Button>
             </Fragment>
           )}

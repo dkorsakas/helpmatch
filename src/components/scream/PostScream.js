@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AddIcon from '@material-ui/icons/Add';
+
 import CloseIcon from '@material-ui/icons/Close';
 // Redux stuff
 import { connect } from 'react-redux';
@@ -91,9 +91,14 @@ class PostScream extends Component {
     } = this.props;
     return (
       <Fragment>
-        <MyButton onClick={this.handleOpen} tip='Post a Scream!'>
-          <AddIcon />
-        </MyButton>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={this.handleOpen}
+          tip='Post a Scream!'
+        >
+          Make a post
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

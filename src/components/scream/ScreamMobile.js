@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
-import MyButton from '../../util/MyButton';
+
 import DeleteScream from './DeleteScream';
 import ScreamDialog from './ScreamDialog';
 import LikeButton from './LikeButton';
@@ -19,7 +19,6 @@ import Typography from '@material-ui/core/Typography';
 // Redux
 import { connect } from 'react-redux';
 import Chip from '@material-ui/core/Chip';
-import { Button } from '@material-ui/core';
 
 const styles = {
   card: {
@@ -119,7 +118,7 @@ class Scream extends Component {
             {tagDisplay}
           </Typography>
 
-          <Typography color='primary'>{`Loacation: ${location}`}</Typography>
+          <Typography color='primary'>{`Location: ${location}`}</Typography>
           <Typography variant='body1'>{truncateText(body, 200)}</Typography>
           <LikeButton screamId={screamId} />
           <span>{likeCount} Votes</span>
